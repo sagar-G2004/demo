@@ -1,0 +1,25 @@
+name: variables_demo 
+
+on:
+  push:
+    branches:
+      - main  # Removed the trailing colon
+  workflow_dispatch:
+
+env:
+  cloud: "Google cloud"
+
+jobs:
+  demo-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4  # Fixed 'action' to 'actions'
+
+      - name: print diff variables
+        run: |
+          echo "Environment variable: $cloud"
+          echo "Context variable: ${{ github.repository }}"
+          echo "Repository variable: ${{ vars.name }}"
+          echo "Secret variable: ${{ secrets.key }}"
